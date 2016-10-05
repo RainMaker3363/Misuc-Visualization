@@ -30,17 +30,17 @@ public class MidiAssetEditor : Editor
             // 들여쓰기 용도
             // Level이 높을수록 밖으로 들여쓰기가 된다
             EditorGUI.indentLevel++;
-            GUILayout.Label(string.Format("PPQN : {0:d}", midiAsset.PPQN));
-            GUILayout.Label(string.Format("Pulse : {0:f} Sec", midiAsset.PulseTime));
-            GUILayout.Label(string.Format("BPM : {0:d}", midiAsset.BPM)); ;
-            GUILayout.Label(string.Format("Numerator : {0:d}", midiAsset.Numerator));
-            GUILayout.Label(string.Format("Denominator : {0:d}", midiAsset.Denominator));
+            EditorGUILayout.LabelField(string.Format("PPQN : {0:d}", midiAsset.PPQN));
+            EditorGUILayout.LabelField(string.Format("Pulse : {0:f} Sec", midiAsset.PulseTime));
+            EditorGUILayout.LabelField(string.Format("BPM : {0:d}", midiAsset.BPM)); ;
+            EditorGUILayout.LabelField(string.Format("Numerator : {0:d}", midiAsset.Numerator));
+            EditorGUILayout.LabelField(string.Format("Denominator : {0:d}", midiAsset.Denominator));
             EditorGUI.indentLevel--;
         }
         
         if(GUILayout.Button("Track Viewer") == true)
         {
-            MidiTrackWindow.ShowWindow();
+            MidiTrackWindow.ShowWindow(midiAsset);
         }
     }
 }
