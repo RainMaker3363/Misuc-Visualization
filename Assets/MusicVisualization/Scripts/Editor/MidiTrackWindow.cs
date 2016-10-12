@@ -53,7 +53,7 @@ public class MidiTrackWindow : EditorWindow
         GUI.EndGroup();
 
         //============================================= Musical Area ===========================================================
-        rect = new Rect(0, TitleHeight, MusicalScaleWidth, position.height - TitleHeight);
+        rect = new Rect(0, TitleHeight + TimeHeight, MusicalScaleWidth, position.height - TitleHeight);
 
         GUI.Box(rect, "");
 
@@ -86,6 +86,7 @@ public class MidiTrackWindow : EditorWindow
 
         DrawTimeArea(rect.width, rect.height);
 
+        
         GUILayout.EndArea();
 
         //============================================= Note Area ===========================================================
@@ -122,9 +123,16 @@ public class MidiTrackWindow : EditorWindow
         style.alignment = TextAnchor.MiddleCenter;
         style.fontStyle = FontStyle.Italic;
 
-        Rect rect2 = new Rect(0, 0, width, GridY);
+        // 노트 스크롤을 계산
 
-        for(int i =0; i<128; i++)
+        int sNote = (int)(_NoteAreaScroll.y / GridY);
+        int eNote = (int)((_NoteAreaScroll.y + height) / GridY);
+
+        float sy = -(_NoteAreaScroll.y % GridY);
+
+        Rect rect2 = new Rect(0, sy, width, GridY);
+
+        for (int i = sNote; i <= eNote; i++)
         {
             GUI.Box(rect2, "");
             GUI.Label(rect2, NoteNumberToString(i), style);
@@ -157,7 +165,83 @@ public class MidiTrackWindow : EditorWindow
 
     void DrawTimeArea(float width, float height)
     {
+        Rect areaRect = new Rect(0, 0, width, height);
+        int sTime = (int)(_NoteAreaScroll.x / GridX);
+        int eTime = (int)((_NoteAreaScroll.x + width) / GridX);
 
+        //=================================================================================================
+        // Draw Text Area
+        //=================================================================================================
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+
+        style.alignment = TextAnchor.MiddleLeft;
+        style.fontStyle = FontStyle.Italic;
+
+        int sText = (int)(sTime / 100);
+        int eText = (int)(eTime / 100);
+
+        float TextW = GridX * 100;
+        float TextH = height * 0.4f;
+
+        float sTextX = -(_NoteAreaScroll.x % TextW);
+
+        Rect textRect = new Rect(sTextX, 0, TextW, TextH);
+
+        for (int i = sText; i <= eText; i++)
+        {
+            GUI.Label(textRect, string.Format("{0:f1}", i * 0.1f), style);
+            textRect.x += TextW;
+        }
+
+        //=================================================================================================
+        // Draw Line Area
+        //=================================================================================================
+
+        int sLine = (int)(sTime / 10);
+        int eLine = (int)(eTime / 10);
+
+        float LineW = GridX * 10;
+        float LineH = height * 0.6f;
+
+        float sLineX = -(_NoteAreaScroll.x % LineW);
+
+        Texture2D lineTexture = new Texture2D(1, 1);
+        lineTexture.SetPixel(0, 0, Color.black);
+        lineTexture.Apply();
+
+        Rect pixelRect = new Rect(0, 0, 1, 1);
+        int longLineY = (int)TextH;
+        int shortLineY = (int)(longLineY + LineH * 0.5f);
+        int eLineY = (int)(height);
+
+        //Rect lineRect = new Rect(0, 0, LineW, LineH);
+
+        for (int i = sLine; i <= eLine; i++)
+        {
+            pixelRect.x = sLineX;
+
+            if(i % 10 == 0) //  Long Line
+            {
+                for (int j = longLineY; j <= eLineY; j++ )
+                {
+                    pixelRect.y = j;
+
+                    GUI.DrawTexture(pixelRect, lineTexture);
+                }
+                    
+            }
+            else            //  Short Line
+            {
+                for (int j = shortLineY; j <= eLineY; j++)
+                {
+                    pixelRect.y = j;
+
+                    GUI.DrawTexture(pixelRect, lineTexture);
+                }
+            }
+
+            sLineX += LineW;
+        }
     }
 
     void DrawNoteArea(float width, float height)
