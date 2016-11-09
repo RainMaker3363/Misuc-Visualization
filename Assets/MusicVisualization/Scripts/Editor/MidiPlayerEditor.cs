@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Collections;
 
-//[CustomEditor(typeof(MidiPlayer))]
+[CustomEditor(typeof(MidiPlayer))]
 public class MidiPlayerEditor : Editor {
 
     SerializedProperty midi;
@@ -15,10 +15,10 @@ public class MidiPlayerEditor : Editor {
     void OnEnable()
     {
         midi = serializedObject.FindProperty("midi");
-        midi = serializedObject.FindProperty("Music");
-        midi = serializedObject.FindProperty("audioSource");
-        midi = serializedObject.FindProperty("playDelayTime");
-        midi = serializedObject.FindProperty("playSpeed");
+        Music = serializedObject.FindProperty("Music");
+        audioSource = serializedObject.FindProperty("audioSource");
+        playDelayTime = serializedObject.FindProperty("playDelayTime");
+        playSpeed = serializedObject.FindProperty("playSpeed");
     }
 
     public override void OnInspectorGUI()
