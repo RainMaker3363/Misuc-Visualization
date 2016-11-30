@@ -21,6 +21,7 @@ public class MainVortex : MidiEventTrigger
     {
         if(RotationOn == true)
         {
+            
             this.transform.Rotate(new Vector3(0f, 0f, 100.0f) * Time.deltaTime);
         }
     }

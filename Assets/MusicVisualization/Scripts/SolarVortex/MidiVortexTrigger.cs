@@ -4,12 +4,12 @@ using System.Collections;
 public class MidiVortexTrigger : MidiEventTrigger
 {
 
-    private ParticleSystem RippleParticle;
+    public ParticleSystem RippleParticle;
 
     // Use this for initialization
     void Start()
     {
-        RippleParticle = GetComponent<ParticleSystem>();
+        //RippleParticle = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -39,11 +39,11 @@ public class MidiVortexTrigger : MidiEventTrigger
 
     protected override void OnNoteOn()
     {
-        RippleParticle.Play();
+        //RippleParticle.Play();
     }
 
     protected override void OnNoteOff()
     {
-        RippleParticle.Stop();
+        //RippleParticle.Stop();
     }
 }

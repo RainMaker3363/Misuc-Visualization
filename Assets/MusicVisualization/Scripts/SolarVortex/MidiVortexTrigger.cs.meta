@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: fb4203a32e5b303459107c7f61c23422
-timeCreated: 1479867922
+timeCreated: 1480472090
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - RippleParticle: {fileID: 198000013557498874, guid: eb1f3dca141a5f447b4760fed2462f5d,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

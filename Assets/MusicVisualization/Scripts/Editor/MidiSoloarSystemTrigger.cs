@@ -3,10 +3,8 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.Collections;
 
-[CustomEditor(typeof(MidiVortexTrigger))]
-public class MidiVortexTriggerEditor : Editor {
-
-    //public ParticleSystem Particle;
+[CustomEditor(typeof(SolarSystem))]
+public class MidiSoloarSystemTrigger : Editor {
 
     private bool foldout = false;
     private bool foidout2 = false;
@@ -30,7 +28,7 @@ public class MidiVortexTriggerEditor : Editor {
         serializedObject.ApplyModifiedProperties();
 
 
-        MidiVortexTrigger trigger = (MidiVortexTrigger)target;
+        SolarSystem trigger = (SolarSystem)target;
 
         foldout = EditorGUILayout.Foldout(foldout, "Instrument Filter");
 
