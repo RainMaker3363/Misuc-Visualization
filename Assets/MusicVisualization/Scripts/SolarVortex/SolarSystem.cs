@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class SolarSystem : MidiEventTrigger
@@ -8,6 +9,11 @@ public class SolarSystem : MidiEventTrigger
     //private GameObject MainCamera;
     //private GameObject CameraPos;
     private bool RotationOn;
+
+    public UnityEvent eventPlay;
+    public UnityEvent eventPause;
+    public UnityEvent eventStop;
+
 
     // Use this for initialization
     void Start()
@@ -32,21 +38,30 @@ public class SolarSystem : MidiEventTrigger
     protected override void OnPlay()
     {
         RotationOn = true;
+
+        eventPlay.Invoke();
     }
 
     protected override void OnPause()
     {
         RotationOn = false;
+
+        eventPause.Invoke();
     }
 
     protected override void OnResume()
     {
         RotationOn = true;
+
+        //eventPlay.Invoke();
     }
 
     protected override void OnStop()
     {
         RotationOn = false;
+
+        //eventPause.Invoke();
+        eventStop.Invoke();
     }
 
     protected override void OnNoteOn()

@@ -12,10 +12,18 @@ public class MidiSoloarSystemTrigger : Editor {
     SerializedProperty eventNoteOn;
     SerializedProperty eventNoteOff;
 
+    SerializedProperty eventPlay;
+    SerializedProperty eventPause;
+    SerializedProperty eventStop;
+
     void OnEnable()
     {
         eventNoteOn = serializedObject.FindProperty("eventNoteOn");
         eventNoteOff = serializedObject.FindProperty("eventNoteOff");
+
+        eventPlay = serializedObject.FindProperty("eventPlay");
+        eventPause = serializedObject.FindProperty("eventPause");
+        eventStop = serializedObject.FindProperty("eventStop");
     }
 
     public override void OnInspectorGUI()
@@ -24,6 +32,10 @@ public class MidiSoloarSystemTrigger : Editor {
 
         EditorGUILayout.PropertyField(eventNoteOn, new GUIContent("Note On"));
         EditorGUILayout.PropertyField(eventNoteOff, new GUIContent("Note Off"));
+
+        EditorGUILayout.PropertyField(eventPlay, new GUIContent("Play"));
+        EditorGUILayout.PropertyField(eventPause, new GUIContent("Pause"));
+        EditorGUILayout.PropertyField(eventStop, new GUIContent("Stop"));
 
         serializedObject.ApplyModifiedProperties();
 
