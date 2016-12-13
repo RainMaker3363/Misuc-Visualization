@@ -32,10 +32,12 @@ public class MidiPlayer : MonoBehaviour {
 	void Start () {
 
         //audioSource.clip = Music;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        
 	
         if(_isPlaying == true)
         {
@@ -237,6 +239,14 @@ public class MidiPlayer : MonoBehaviour {
         get
         {
             return _playTime;
+        }
+    }
+
+    public MidiTrack[] Tracks
+    {
+        get
+        {
+            return midi.Tracks;
         }
     }
 }

@@ -51,6 +51,7 @@ public class MidiEventTriggerEditor : Editor {
 
             for (int i = 0; i < 129; i++)
             {
+                
                 bool newValue = EditorGUILayout.Toggle(MidiFile.Instruments[i], trigger.instrumentFilter[i]);
 
                 if (newValue != trigger.instrumentFilter[i])

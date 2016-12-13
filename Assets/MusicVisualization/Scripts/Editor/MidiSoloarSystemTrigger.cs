@@ -9,6 +9,10 @@ public class MidiSoloarSystemTrigger : Editor {
     private bool foldout = false;
     private bool foidout2 = false;
 
+    private MidiPlayer _MidiPlayer;
+    private MidiTrack[] _Tracks;
+    private MidiNote[] _Notes;
+
     SerializedProperty eventNoteOn;
     SerializedProperty eventNoteOff;
 
@@ -24,6 +28,14 @@ public class MidiSoloarSystemTrigger : Editor {
         eventPlay = serializedObject.FindProperty("eventPlay");
         eventPause = serializedObject.FindProperty("eventPause");
         eventStop = serializedObject.FindProperty("eventStop");
+
+        _MidiPlayer = GameObject.FindObjectOfType<MidiPlayer>();
+
+        if (_MidiPlayer != null)
+        {
+            _Tracks = _MidiPlayer.Tracks;
+
+        }
     }
 
     public override void OnInspectorGUI()
@@ -62,9 +74,10 @@ public class MidiSoloarSystemTrigger : Editor {
                 }
             }
 
-            for (int i = 0; i < 129; i++)
+            for (int i = 0; i < _Tracks.Length; i++)
             {
-                bool newValue = EditorGUILayout.Toggle(MidiFile.Instruments[i], trigger.instrumentFilter[i]);
+                bool newValue = EditorGUILayout.Toggle(_Tracks[i].InstrumentName, trigger.instrumentFilter[i]);
+                //Debug.Log(trigger.instrumentFilter[i]);
 
                 if (newValue != trigger.instrumentFilter[i])
                 {
